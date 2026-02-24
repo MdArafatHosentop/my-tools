@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Tools Hub - 70+ Free Online Tools</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header Section */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .logo span {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            padding: 5px 10px;
+            width: 250px;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .search-box i {
+            cursor: pointer;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 40px;
+            color: white;
+            margin-bottom: 40px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .welcome-banner h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-banner p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .category-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .category-btn.active {
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .tool-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .tool-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .tool-card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .tool-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Modal (Tool Popup) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .modal-header .tool-icon {
+            margin-bottom: 0;
+        }
+
+        .modal-header h2 {
+            color: #333;
+        }
+
+        /* Tool Inputs */
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+
+        .tool-input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .tool-input-group input,
+        .tool-input-group textarea,
+        .tool-input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .tool-input-group input:focus,
+        .tool-input-group textarea:focus,
+        .tool-input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .tool-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: transform 0.3s;
+        }
+
+        .tool-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .tool-result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .tool-result.show {
+            display: block;
+        }
+
+        .copy-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0,0,0,0.2);
+            color: white;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .welcome-banner h2 {
+                font-size: 24px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>Ultimate Tools Hub</h1>
+                <span>70+ Free Online Tools</span>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchTools" placeholder="Search tools...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <h2>Welcome to Ultimate Tools Hub</h2>
+            <p>Your one-stop solution for all daily needs - 100% Free, No Registration Required</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalTools">70+</div>
+                    <div class="stat-label">Total Tools</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Free Access</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Navigation -->
+        <div class="category-nav" id="categoryNav">
+            <button class="category-btn active" data-category="all">All Tools</button>
+            <button class="category-btn" data-category="basic">Basic Utilities</button>
+            <button class="category-btn" data-category="text">Text Tools</button>
+            <button class="category-btn" data-category="dev">Developer Tools</button>
+            <button class="category-btn" data-category="creative">Creative Tools</button>
+            <button class="category-btn" data-category="finance">Finance Tools</button>
+            <button class="category-btn" data-category="daily">Daily Life</button>
+            <button class="category-btn" data-category="educational">Educational</button>
+            <button class="category-btn" data-category="file">File Tools</button>
+            <button class="category-btn" data-category="professional">Professional</button>
+            <button class="category-btn" data-category="fun">Fun & AI</button>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="spinner" id="loadingSpinner"></div>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid" id="toolsGrid"></div>
+    </div>
+
+    <!-- Tool Modal -->
+    <div class="modal" id="toolModal">
+        <div class="modal-content" id="modalContent">
+            <!-- Content will be loaded dynamically -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Ultimate Tools Hub provides 70+ free online tools for developers, designers, students, and professionals. All tools are 100% free with no registration required.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Popular Tools</h3>
+                <ul>
+                    <li><a href="#">PDF Converter</a></li>
+                    <li><a href="#">Image Resizer</a></li>
+                    <li><a href="#">QR Code Generator</a></li>
+                    <li><a href="#">Unit Converter</a></li>
+                    <li><a href="#">Password Generator</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#">Basic Utilities</a></li>
+                    <li><a href="#">Developer Tools</a></li>
+                    <li><a href="#">Creative Tools</a></li>
+                    <li><a href="#">Finance Tools</a></li>
+                    <li><a href="#">All Categories</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Ultimate Tools Hub. All rights reserved. | Made with <i class="fas fa-heart" style="color: #ff4444;"></i> for the community</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            
+            // Complete Tools Database
+            const tools = [
+                // Basic Utilities (10 tools)
+                { id: 1, name: 'Unit Converter', category: 'basic', icon: 'fa-arrows-alt', description: 'Convert length, mass, volume, temperature', popularity: 'high' },
+                { id: 2, name: 'Currency Converter', category: 'basic', icon: 'fa-dollar-sign', description: 'Live exchange rates', popularity: 'high' },
+                { id: 3, name: 'PDF Tools', category: 'basic', icon: 'fa-file-pdf', description: 'Merge, split, compress PDF', popularity: 'high' },
+                { id: 4, name: 'Image Converter', category: 'basic', icon: 'fa-image', description: 'JPG, PNG, WebP, GIF converter', popularity: 'high' },
+                { id: 5, name: 'Image Resizer', category: 'basic', icon: 'fa-expand', description: 'Resize and crop images', popularity: 'medium' },
+                { id: 6, name: 'Color Picker', category: 'basic', icon: 'fa-palette', description: 'Hex to RGB converter', popularity: 'medium' },
+                { id: 7, name: 'Speed Test', category: 'basic', icon: 'fa-tachometer-alt', description: 'Check internet speed', popularity: 'medium' },
+                { id: 8, name: 'Stopwatch', category: 'basic', icon: 'fa-stopwatch', description: 'Simple timer', popularity: 'low' },
+                { id: 9, name: 'Age Calculator', category: 'basic', icon: 'fa-calendar', description: 'Calculate exact age', popularity: 'medium' },
+                { id: 10, name: 'Percentage Calculator', category: 'basic', icon: 'fa-percent', description: 'Calculate percentages', popularity: 'high' },
+                
+                // Text Tools (10 tools)
+                { id: 11, name: 'Word Counter', category: 'text', icon: 'fa-file-alt', description: 'Count words and characters', popularity: 'high' },
+                { id: 12, name: 'Case Converter', category: 'text', icon: 'fa-text-height', description: 'Uppercase, lowercase, title case', popularity: 'high' },
+                { id: 13, name: 'Grammar Checker', category: 'text', icon: 'fa-spell-check', description: 'AI-powered grammar check', popularity: 'high' },
+                { id: 14, name: 'Duplicate Remover', category: 'text', icon: 'fa-clone', description: 'Remove duplicate lines', popularity: 'medium' },
+                { id: 15, name: 'Text Compare', category: 'text', icon: 'fa-not-equal', description: 'Compare text differences', popularity: 'medium' },
+                { id: 16, name: 'Lorem Ipsum', category: 'text', icon: 'fa-paragraph', description: 'Generate placeholder text', popularity: 'medium' },
+                { id: 17, name: 'Handwriting Generator', category: 'text', icon: 'fa-pen', description: 'Create handwriting style', popularity: 'low' },
+                { id: 18, name: 'Palindrome Checker', category: 'text', icon: 'fa-sync', description: 'Check palindrome words', popularity: 'low' },
+                { id: 19, name: 'Reverse Text', category: 'text', icon: 'fa-undo-alt', description: 'Reverse string', popularity: 'low' },
+                { id: 20, name: 'ASCII Generator', category: 'text', icon: 'fa-font', description: 'Text to ASCII art', popularity: 'low' },
+                
+                // Developer Tools (12 tools)
+                { id: 21, name: 'JSON Formatter', category: 'dev', icon: 'fa-brackets-curly', description: 'Format and validate JSON', popularity: 'high' },
+                { id: 22, name: 'HTML Encoder', category: 'dev', icon: 'fa-code', description: 'Encode/decode HTML', popularity: 'high' },
+                { id: 23, name: 'Base64 Encoder', category: 'dev', icon: 'fa-lock', description: 'Encode/decode Base64', popularity: 'high' },
+                { id: 24, name: 'CSS Minifier', category: 'dev', icon: 'fa-file-code', description: 'Minify CSS code', popularity: 'medium' },
+                { id: 25, name: 'JS Minifier', category: 'dev', icon: 'fa-file-code', description: 'Minify JavaScript', popularity: 'medium' },
+                { id: 26, name: 'Code Share', category: 'dev', icon: 'fa-share-alt', description: 'Share code snippets', popularity: 'medium' },
+                { id: 27, name: 'Regex Tester', category: 'dev', icon: 'fa-terminal', description: 'Test regular expressions', popularity: 'medium' },
+                { id: 28, name: 'SQL Formatter', category: 'dev', icon: 'fa-database', description: 'Format SQL queries', popularity: 'medium' },
+                { id: 29, name: 'JWT Decoder', category: 'dev', icon: 'fa-key', description: 'Decode JWT tokens', popularity: 'medium' },
+                { id: 30, name: 'URL Parser', category: 'dev', icon: 'fa-link', description: 'Parse URL components', popularity: 'low' },
+                { id: 31, name: 'Git Ignore Generator', category: 'dev', icon: 'fa-git', description: 'Generate .gitignore files', popularity: 'medium' },
+                { id: 32, name: 'Port Scanner', category: 'dev', icon: 'fa-network-wired', description: 'Scan open ports', popularity: 'low' },
+                
+                // Creative Tools (8 tools)
+                { id: 33, name: 'Logo Maker', category: 'creative', icon: 'fa-paint-brush', description: 'Create simple logos', popularity: 'high' },
+                { id: 34, name: 'Font Generator', category: 'creative', icon: 'fa-font-awesome', description: 'Fancy text fonts', popularity: 'high' },
+                { id: 35, name: 'Watermark Tool', category: 'creative', icon: 'fa-water', description: 'Add watermark to images', popularity: 'medium' },
+                { id: 36, name: 'Image Blur', category: 'creative', icon: 'fa-blender', description: 'Blur image parts', popularity: 'medium' },
+                { id: 37, name: 'Gradient Generator', category: 'creative', icon: 'fa-gradient', description: 'CSS gradients', popularity: 'high' },
+                { id: 38, name: 'QR Code', category: 'creative', icon: 'fa-qrcode', description: 'Generate QR codes', popularity: 'high' },
+                { id: 39, name: 'Barcode Generator', category: 'creative', icon: 'fa-barcode', description: 'Create barcodes', popularity: 'medium' },
+                { id: 40, name: 'Pattern Generator', category: 'creative', icon: 'fa-th', description: 'Create patterns', popularity: 'low' },
+                
+                // Finance Tools (6 tools)
+                { id: 41, name: 'EMI Calculator', category: 'finance', icon: 'fa-calculator', description: 'Calculate loan EMI', popularity: 'high' },
+                { id: 42, name: 'GST Calculator', category: 'finance', icon: 'fa-file-invoice-dollar', description: 'Tax calculation', popularity: 'high' },
+                { id: 43, name: 'Tip Calculator', category: 'finance', icon: 'fa-utensils', description: 'Restaurant bill tip', popularity: 'medium' },
+                { id: 44, name: 'Sales Tax', category: 'finance', icon: 'fa-chart-line', description: 'Sales tax calculator', popularity: 'medium' },
+                { id: 45, name: 'Discount Calculator', category: 'finance', icon: 'fa-tags', description: 'Calculate discounts', popularity: 'high' },
+                { id: 46, name: 'Scientific Calculator', category: 'finance', icon: 'fa-square-root-alt', description: 'Advanced calculator', popularity: 'medium' },
+                
+                // Daily Life Tools (6 tools)
+                { id: 47, name: 'World Clock', category: 'daily', icon: 'fa-clock', description: 'Global time zones', popularity: 'high' },
+                { id: 48, name: 'Date Difference', category: 'daily', icon: 'fa-calendar-alt', description: 'Days between dates', popularity: 'medium' },
+                { id: 49, name: 'Random Number', category: 'daily', icon: 'fa-dice', description: 'Generate random numbers', popularity: 'medium' },
+                { id: 50, name: 'Password Generator', category: 'daily', icon: 'fa-key', description: 'Strong passwords', popularity: 'high' },
+                { id: 51, name: 'Battery Checker', category: 'daily', icon: 'fa-battery-full', description: 'Check battery status', popularity: 'low' },
+                { id: 52, name: 'Flashlight', category: 'daily', icon: 'fa-lightbulb', description: 'Screen flashlight', popularity: 'low' },
+                
+                // Educational Tools (5 tools)
+                { id: 53, name: 'Multiplication Table', category: 'educational', icon: 'fa-table', description: 'Times tables', popularity: 'medium' },
+                { id: 54, name: 'Math Solver', category: 'educational', icon: 'fa-square-root-alt', description: 'Solve equations', popularity: 'high' },
+                { id: 55, name: 'Roman Converter', category: 'educational', icon: 'fa-roman', description: 'Roman numerals', popularity: 'medium' },
+                { id: 56, name: 'CGPA Calculator', category: 'educational', icon: 'fa-graduation-cap', description: 'Grade calculator', popularity: 'high' },
+                { id: 57, name: 'Bangla Date', category: 'educational', icon: 'fa-calendar-alt', description: 'English to Bangla date', popularity: 'medium' },
+                
+                // File Tools (5 tools)
+                { id: 58, name: 'URL Shortener', category: 'file', icon: 'fa-link', description: 'Shorten URLs', popularity: 'high' },
+                { id: 59, name: 'File to URL', category: 'file', icon: 'fa-file-upload', description: 'Share files', popularity: 'medium' },
+                { id: 60, name: 'Screenshot Tool', category: 'file', icon: 'fa-camera', description: 'Website screenshots', popularity: 'medium' },
+                { id: 61, name: 'File Splitter', category: 'file', icon: 'fa-cut', description: 'Split large files', popularity: 'low' },
+                { id: 62, name: 'ZIP Tool', category: 'file', icon: 'fa-file-archive', description: 'Compress files', popularity: 'medium' },
+                
+                // Professional Tools (4 tools)
+                { id: 63, name: 'Email Signature', category: 'professional', icon: 'fa-signature', description: 'Create signatures', popularity: 'medium' },
+                { id: 64, name: 'Resume Checker', category: 'professional', icon: 'fa-file-alt', description: 'CV analysis', popularity: 'high' },
+                { id: 65, name: 'Invoice Generator', category: 'professional', icon: 'fa-file-invoice', description: 'Create invoices', popularity: 'medium' },
+                { id: 66, name: 'Meeting Scheduler', category: 'professional', icon: 'fa-calendar-check', description: 'Schedule meetings', popularity: 'medium' },
+                
+                // Fun & AI Tools (4 tools)
+                { id: 67, name: 'AI Image Gen', category: 'fun', icon: 'fa-robot', description: 'Text to image', popularity: 'high' },
+                { id: 68, name: 'Text Summarizer', category: 'fun', icon: 'fa-compress-alt', description: 'AI summary', popularity: 'high' },
+                { id: 69, name: 'Meme Generator', category: 'fun', icon: 'fa-smile', description: 'Create memes', popularity: 'high' },
+                { id: 70, name: 'Story Generator', category: 'fun', icon: 'fa-book-open', description: 'AI story writer', popularity: 'medium' }
+            ];
+
+            // Load tools in grid
+            function loadTools(category = 'all') {
+                $('#loadingSpinner').show();
+                
+                setTimeout(() => {
+                    let filteredTools = category === 'all' ? tools : tools.filter(t => t.category === category);
+                    
+                    let toolsHtml = '';
+                    filteredTools.forEach(tool => {
+                        toolsHtml += `
+                            <div class="tool-card" data-id="${tool.id}">
+                                <div class="tool-icon">
+                                    <i class="fas ${tool.icon}"></i>
+                                </div>
+                                <h3>${tool.name}</h3>
+                                <p>${tool.description}</p>
+                                <div class="tool-meta">
+                                    <span><i class="fas fa-star"></i> ${tool.popularity}</span>
+                                    <span><i class="fas fa-users"></i> Free</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    $('#toolsGrid').html(toolsHtml);
+                    $('#loadingSpinner').hide();
+                }, 500);
+            }
+
+            // Initial load
+            loadTools();
+
+            // Category filter
+            $('.category-btn').click(function() {
+                $('.category-btn').removeClass('active');
+                $(this).addClass('active');
+                const category = $(this).data('category');
+                loadTools(category);
+            });
+
+            // Search functionality
+            $('#searchTools').on('keyup', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                
+                if (searchTerm.length > 0) {
+                    const filteredTools = tools.filter(tool => 
+                        tool.name.toLowerCase().includes(searchTerm) || 
+                        tool.description.toLowerCase().includes(searchTerm)
+                    );
+                    
+                    let toolsHtml = '';
+                    filteredTools.forEach(tool => {
+                        toolsHtml += `
+                            <div class="tool-card" data-id="${tool.id}">
+                                <div class="tool-icon">
+                                    <i class="fas ${tool.icon}"></i>
+                                </div>
+                                <h3>${tool.name}</h3>
+                                <p>${tool.description}</p>
+                                <div class="tool-meta">
+                                    <span><i class="fas fa-star"></i> ${tool.popularity}</span>
+                                    <span><i class="fas fa-users"></i> Free</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    $('#toolsGrid').html(toolsHtml);
+                } else {
+                    loadTools($('.category-btn.active').data('category'));
+                }
+            });
+
+            // Tool click handler
+            $(document).on('click', '.tool-card', function() {
+                const toolId = $(this).data('id');
+                const tool = tools.find(t => t.id === toolId);
+                
+                // Create modal content based on tool type
+                let modalHtml = `
+                    <span class="close-modal">&times;</span>
+                    <div class="modal-header">
+                        <div class="tool-icon">
+                            <i class="fas ${tool.icon}"></i>
+                        </div>
+                        <h2>${tool.name}</h2>
+                    </div>
+                `;
+
+                // Different interfaces for different tools
+                switch(tool.name) {
+                    case 'Unit Converter':
+                        modalHtml += `
+                            <div class="tool-input-group">
+                                <label>From:</label>
+                                <input type="number" id="unitValue" placeholder="Enter value">
+                                <select id="fromUnit">
+                                    <option>Meters</option>
+                                    <option>Kilometers</option>
+                                    <option>Miles</option>
+                                </select>
+                            </div>
+                            <div class="tool-input-group">
+                                <label>To:</label>
+                                <select id="toUnit">
+                                    <option>Meters</option>
+                                    <option>Kilometers</option>
+                                    <option>Miles</option>
+                                </select>
+                            </div>
+                            <button class="tool-btn" onclick="convertUnit()">Convert</button>
+                            <div class="tool-result" id="unitResult"></div>
+                        `;
+                        break;
+                        
+                    case 'QR Code':
+                        modalHtml += `
+                            <div class="tool-input-group">
+                                <label>Enter Text or URL:</label>
+                                <input type="text" id="qrText" placeholder="https://example.com">
+                            </div>
+                            <button class="tool-btn" onclick="generateQR()">Generate QR</button>
+                            <div class="tool-result" id="qrResult"></div>
+                        `;
+                        break;
+                        
+                    case 'Password Generator':
+                        modalHtml += `
+                            <div class="tool-input-group">
+                                <label>Password Length:</label>
+                                <input type="number" id="passLength" value="12" min="4" max="50">
+                            </div>
+                            <div class="tool-input-group">
+                                <label><input type="checkbox" id="includeUpper" checked> Include Uppercase</label><br>
+                                <label><input type="checkbox" id="includeLower" checked> Include Lowercase</label><br>
+                                <label><input type="checkbox" id="includeNumbers" checked> Include Numbers</label><br>
+                                <label><input type="checkbox" id="includeSymbols" checked> Include Symbols</label>
+                            </div>
+                            <button class="tool-btn" onclick="generatePassword()">Generate Password</button>
+                            <div class="tool-result" id="passwordResult"></div>
+                        `;
+                        break;
+                        
+                    case 'JSON Formatter':
+                        modalHtml += `
+                            <div class="tool-input-group">
+                                <label>Enter JSON:</label>
+                                <textarea id="jsonInput" rows="5" placeholder='{"name":"John","age":30}'></textarea>
+                            </div>
+                            <button class="tool-btn" onclick="formatJSON()">Format JSON</button>
+                            <div class="tool-result" id="jsonResult"></div>
+                        `;
+                        break;
+                        
+                    case 'Image Resizer':
+                        modalHtml += `
+                            <div class="tool-input-group">
+                                <label>Upload Image:</label>
+                                <input type="file" id="imageUpload" accept="image/*">
+                            </div>
+                            <div class="tool-input-group">
+                                <label>Width:</label>
+                                <input type="number" id="imgWidth" placeholder="Width in px">
+                            </div>
+                            <div class="tool-input-group">
+                                <label>Height:</label>
+                                <input type="number" id="imgHeight" placeholder="Height in px">
+                            </div>
+                            <button class="tool-btn" onclick="resizeImage()">Resize</button>
+                            <div class="tool-result" id="imageResult"></div>
+                        `;
+                        break;
+                        
+                    default:
+                        modalHtml += `
+                            <div class="tool-input-group">
+                                <label>Input:</label>
+                                <textarea id="toolInput" rows="4" placeholder="Enter your text here..."></textarea>
+                            </div>
+                            <button class="tool-btn" onclick="processTool(${tool.id})">Process</button>
+                            <div class="tool-result" id="toolResult"></div>
+                        `;
+                }
+
+                $('#modalContent').html(modalHtml);
+                $('#toolModal').fadeIn();
+            });
+
+            // Close modal
+            $(document).on('click', '.close-modal', function() {
+                $('#toolModal').fadeOut();
+            });
+
+            $(window).click(function(e) {
+                if ($(e.target).
