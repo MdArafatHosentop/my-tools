@@ -3,52 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text & Writing Tools</title>
+  <title>All-in-One Tools Website</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>Text & Writing Tools</h1>
-  <a href="index.html" style="color:white;">← Home</a>
-</header>
+  <header>
+    <h1>All-in-One Tools</h1>
+    <input type="text" id="search" placeholder="Search tools..." onkeyup="searchTools()">
+  </header>
 
-<main>
-  <section>
-    <h2>Uppercase / Lowercase Converter</h2>
-    <textarea id="textInput" rows="5" placeholder="Type your text here..."></textarea>
-    <br>
-    <button onclick="toUpperCase()">UPPERCASE</button>
-    <button onclick="toLowerCase()">lowercase</button>
-    <p>Output:</p>
-    <div id="textOutput" style="background:#f0f0f0;padding:10px;border-radius:5px;"></div>
-  </section>
+  <main>
+    <section class="categories">
+      <h2>Categories</h2>
+      <div class="category-list">
+        <a href="text-tools.html">Text & Writing Tools</a>
+        <a href="web-tools.html">Web & Developer Tools</a>
+        <a href="image-tools.html">Image Tools</a>
+        <a href="video-tools.html">Video & Audio Tools</a>
+        <a href="pdf-tools.html">PDF Tools</a>
+        <a href="calculator-tools.html">Calculator Tools</a>
+        <a href="finance-tools.html">Finance Tools</a>
+        <a href="social-tools.html">Social Media Tools</a>
+        <a href="security-tools.html">Security Tools</a>
+        <a href="seo-tools.html">SEO Tools</a>
+        <a href="design-tools.html">Design Tools</a>
+      </div>
+    </section>
+  </main>
 
-  <section>
-    <h2>Word & Character Counter</h2>
-    <textarea id="countText" rows="5" placeholder="Type your text here..."></textarea>
-    <p>Words: <span id="wordCount">0</span> | Characters: <span id="charCount">0</span></p>
-  </section>
-</main>
+  <footer>
+    <p>&copy; 2026 All-in-One Tools</p>
+  </footer>
 
 <script>
-function toUpperCase() {
-  let text = document.getElementById('textInput').value;
-  document.getElementById('textOutput').textContent = text.toUpperCase();
+function searchTools() {
+  let input = document.getElementById('search').value.toLowerCase();
+  let links = document.querySelectorAll('.category-list a');
+  links.forEach(link => {
+    if(link.textContent.toLowerCase().includes(input)){
+      link.style.display = "block";
+    } else {
+      link.style.display = "none";
+    }
+  });
 }
-
-function toLowerCase() {
-  let text = document.getElementById('textInput').value;
-  document.getElementById('textOutput').textContent = text.toLowerCase();
-}
-
-// Word & character counter
-document.getElementById('countText').addEventListener('input', () => {
-  let text = document.getElementById('countText').value;
-  let words = text.trim().split(/\s+/).filter(Boolean).length;
-  let chars = text.length;
-  document.getElementById('wordCount').textContent = words;
-  document.getElementById('charCount').textContent = chars;
-});
 </script>
 </body>
 </html>
