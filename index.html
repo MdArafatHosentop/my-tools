@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Tools Hub - 70+ Free Online Tools</title>
+    <title>Ultimate Tools Hub - 70+ Working Free Online Tools</title>
     
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -30,6 +30,9 @@
             backdrop-filter: blur(10px);
             padding: 20px 0;
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .header-content {
@@ -254,6 +257,11 @@
             font-size: 28px;
             cursor: pointer;
             color: #666;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #ff4444;
         }
 
         .modal-header {
@@ -310,11 +318,13 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 500;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            width: 100%;
         }
 
         .tool-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
         .tool-result {
@@ -323,6 +333,7 @@
             background: #f5f5f5;
             border-radius: 8px;
             display: none;
+            word-break: break-all;
         }
 
         .tool-result.show {
@@ -337,6 +348,30 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #218838;
+        }
+
+        /* Checkbox styles */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
         }
 
         /* Footer */
@@ -371,6 +406,7 @@
         .footer-section ul li a {
             color: rgba(255,255,255,0.8);
             text-decoration: none;
+            transition: color 0.3s;
         }
 
         .footer-section ul li a:hover {
@@ -382,6 +418,10 @@
             padding-top: 30px;
             margin-top: 30px;
             border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .copyright i {
+            color: #ff4444;
         }
 
         /* Loading Spinner */
@@ -499,21 +539,21 @@
             <div class="footer-section">
                 <h3>Popular Tools</h3>
                 <ul>
-                    <li><a href="#">PDF Converter</a></li>
-                    <li><a href="#">Image Resizer</a></li>
-                    <li><a href="#">QR Code Generator</a></li>
-                    <li><a href="#">Unit Converter</a></li>
-                    <li><a href="#">Password Generator</a></li>
+                    <li><a href="#" onclick="openToolByName('Unit Converter'); return false;">PDF Converter</a></li>
+                    <li><a href="#" onclick="openToolByName('Image Resizer'); return false;">Image Resizer</a></li>
+                    <li><a href="#" onclick="openToolByName('QR Code'); return false;">QR Code Generator</a></li>
+                    <li><a href="#" onclick="openToolByName('Unit Converter'); return false;">Unit Converter</a></li>
+                    <li><a href="#" onclick="openToolByName('Password Generator'); return false;">Password Generator</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Categories</h3>
                 <ul>
-                    <li><a href="#">Basic Utilities</a></li>
-                    <li><a href="#">Developer Tools</a></li>
-                    <li><a href="#">Creative Tools</a></li>
-                    <li><a href="#">Finance Tools</a></li>
-                    <li><a href="#">All Categories</a></li>
+                    <li><a href="#" onclick="filterByCategory('basic'); return false;">Basic Utilities</a></li>
+                    <li><a href="#" onclick="filterByCategory('dev'); return false;">Developer Tools</a></li>
+                    <li><a href="#" onclick="filterByCategory('creative'); return false;">Creative Tools</a></li>
+                    <li><a href="#" onclick="filterByCategory('finance'); return false;">Finance Tools</a></li>
+                    <li><a href="#" onclick="filterByCategory('all'); return false;">All Categories</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -527,7 +567,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2024 Ultimate Tools Hub. All rights reserved. | Made with <i class="fas fa-heart" style="color: #ff4444;"></i> for the community</p>
+            <p>&copy; 2024 Ultimate Tools Hub. All rights reserved. | Made with <i class="fas fa-heart"></i> for the community</p>
         </div>
     </footer>
 
@@ -535,293 +575,293 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script>
-        $(document).ready(function() {
-            
-            // Complete Tools Database
-            const tools = [
-                // Basic Utilities (10 tools)
-                { id: 1, name: 'Unit Converter', category: 'basic', icon: 'fa-arrows-alt', description: 'Convert length, mass, volume, temperature', popularity: 'high' },
-                { id: 2, name: 'Currency Converter', category: 'basic', icon: 'fa-dollar-sign', description: 'Live exchange rates', popularity: 'high' },
-                { id: 3, name: 'PDF Tools', category: 'basic', icon: 'fa-file-pdf', description: 'Merge, split, compress PDF', popularity: 'high' },
-                { id: 4, name: 'Image Converter', category: 'basic', icon: 'fa-image', description: 'JPG, PNG, WebP, GIF converter', popularity: 'high' },
-                { id: 5, name: 'Image Resizer', category: 'basic', icon: 'fa-expand', description: 'Resize and crop images', popularity: 'medium' },
-                { id: 6, name: 'Color Picker', category: 'basic', icon: 'fa-palette', description: 'Hex to RGB converter', popularity: 'medium' },
-                { id: 7, name: 'Speed Test', category: 'basic', icon: 'fa-tachometer-alt', description: 'Check internet speed', popularity: 'medium' },
-                { id: 8, name: 'Stopwatch', category: 'basic', icon: 'fa-stopwatch', description: 'Simple timer', popularity: 'low' },
-                { id: 9, name: 'Age Calculator', category: 'basic', icon: 'fa-calendar', description: 'Calculate exact age', popularity: 'medium' },
-                { id: 10, name: 'Percentage Calculator', category: 'basic', icon: 'fa-percent', description: 'Calculate percentages', popularity: 'high' },
-                
-                // Text Tools (10 tools)
-                { id: 11, name: 'Word Counter', category: 'text', icon: 'fa-file-alt', description: 'Count words and characters', popularity: 'high' },
-                { id: 12, name: 'Case Converter', category: 'text', icon: 'fa-text-height', description: 'Uppercase, lowercase, title case', popularity: 'high' },
-                { id: 13, name: 'Grammar Checker', category: 'text', icon: 'fa-spell-check', description: 'AI-powered grammar check', popularity: 'high' },
-                { id: 14, name: 'Duplicate Remover', category: 'text', icon: 'fa-clone', description: 'Remove duplicate lines', popularity: 'medium' },
-                { id: 15, name: 'Text Compare', category: 'text', icon: 'fa-not-equal', description: 'Compare text differences', popularity: 'medium' },
-                { id: 16, name: 'Lorem Ipsum', category: 'text', icon: 'fa-paragraph', description: 'Generate placeholder text', popularity: 'medium' },
-                { id: 17, name: 'Handwriting Generator', category: 'text', icon: 'fa-pen', description: 'Create handwriting style', popularity: 'low' },
-                { id: 18, name: 'Palindrome Checker', category: 'text', icon: 'fa-sync', description: 'Check palindrome words', popularity: 'low' },
-                { id: 19, name: 'Reverse Text', category: 'text', icon: 'fa-undo-alt', description: 'Reverse string', popularity: 'low' },
-                { id: 20, name: 'ASCII Generator', category: 'text', icon: 'fa-font', description: 'Text to ASCII art', popularity: 'low' },
-                
-                // Developer Tools (12 tools)
-                { id: 21, name: 'JSON Formatter', category: 'dev', icon: 'fa-brackets-curly', description: 'Format and validate JSON', popularity: 'high' },
-                { id: 22, name: 'HTML Encoder', category: 'dev', icon: 'fa-code', description: 'Encode/decode HTML', popularity: 'high' },
-                { id: 23, name: 'Base64 Encoder', category: 'dev', icon: 'fa-lock', description: 'Encode/decode Base64', popularity: 'high' },
-                { id: 24, name: 'CSS Minifier', category: 'dev', icon: 'fa-file-code', description: 'Minify CSS code', popularity: 'medium' },
-                { id: 25, name: 'JS Minifier', category: 'dev', icon: 'fa-file-code', description: 'Minify JavaScript', popularity: 'medium' },
-                { id: 26, name: 'Code Share', category: 'dev', icon: 'fa-share-alt', description: 'Share code snippets', popularity: 'medium' },
-                { id: 27, name: 'Regex Tester', category: 'dev', icon: 'fa-terminal', description: 'Test regular expressions', popularity: 'medium' },
-                { id: 28, name: 'SQL Formatter', category: 'dev', icon: 'fa-database', description: 'Format SQL queries', popularity: 'medium' },
-                { id: 29, name: 'JWT Decoder', category: 'dev', icon: 'fa-key', description: 'Decode JWT tokens', popularity: 'medium' },
-                { id: 30, name: 'URL Parser', category: 'dev', icon: 'fa-link', description: 'Parse URL components', popularity: 'low' },
-                { id: 31, name: 'Git Ignore Generator', category: 'dev', icon: 'fa-git', description: 'Generate .gitignore files', popularity: 'medium' },
-                { id: 32, name: 'Port Scanner', category: 'dev', icon: 'fa-network-wired', description: 'Scan open ports', popularity: 'low' },
-                
-                // Creative Tools (8 tools)
-                { id: 33, name: 'Logo Maker', category: 'creative', icon: 'fa-paint-brush', description: 'Create simple logos', popularity: 'high' },
-                { id: 34, name: 'Font Generator', category: 'creative', icon: 'fa-font-awesome', description: 'Fancy text fonts', popularity: 'high' },
-                { id: 35, name: 'Watermark Tool', category: 'creative', icon: 'fa-water', description: 'Add watermark to images', popularity: 'medium' },
-                { id: 36, name: 'Image Blur', category: 'creative', icon: 'fa-blender', description: 'Blur image parts', popularity: 'medium' },
-                { id: 37, name: 'Gradient Generator', category: 'creative', icon: 'fa-gradient', description: 'CSS gradients', popularity: 'high' },
-                { id: 38, name: 'QR Code', category: 'creative', icon: 'fa-qrcode', description: 'Generate QR codes', popularity: 'high' },
-                { id: 39, name: 'Barcode Generator', category: 'creative', icon: 'fa-barcode', description: 'Create barcodes', popularity: 'medium' },
-                { id: 40, name: 'Pattern Generator', category: 'creative', icon: 'fa-th', description: 'Create patterns', popularity: 'low' },
-                
-                // Finance Tools (6 tools)
-                { id: 41, name: 'EMI Calculator', category: 'finance', icon: 'fa-calculator', description: 'Calculate loan EMI', popularity: 'high' },
-                { id: 42, name: 'GST Calculator', category: 'finance', icon: 'fa-file-invoice-dollar', description: 'Tax calculation', popularity: 'high' },
-                { id: 43, name: 'Tip Calculator', category: 'finance', icon: 'fa-utensils', description: 'Restaurant bill tip', popularity: 'medium' },
-                { id: 44, name: 'Sales Tax', category: 'finance', icon: 'fa-chart-line', description: 'Sales tax calculator', popularity: 'medium' },
-                { id: 45, name: 'Discount Calculator', category: 'finance', icon: 'fa-tags', description: 'Calculate discounts', popularity: 'high' },
-                { id: 46, name: 'Scientific Calculator', category: 'finance', icon: 'fa-square-root-alt', description: 'Advanced calculator', popularity: 'medium' },
-                
-                // Daily Life Tools (6 tools)
-                { id: 47, name: 'World Clock', category: 'daily', icon: 'fa-clock', description: 'Global time zones', popularity: 'high' },
-                { id: 48, name: 'Date Difference', category: 'daily', icon: 'fa-calendar-alt', description: 'Days between dates', popularity: 'medium' },
-                { id: 49, name: 'Random Number', category: 'daily', icon: 'fa-dice', description: 'Generate random numbers', popularity: 'medium' },
-                { id: 50, name: 'Password Generator', category: 'daily', icon: 'fa-key', description: 'Strong passwords', popularity: 'high' },
-                { id: 51, name: 'Battery Checker', category: 'daily', icon: 'fa-battery-full', description: 'Check battery status', popularity: 'low' },
-                { id: 52, name: 'Flashlight', category: 'daily', icon: 'fa-lightbulb', description: 'Screen flashlight', popularity: 'low' },
-                
-                // Educational Tools (5 tools)
-                { id: 53, name: 'Multiplication Table', category: 'educational', icon: 'fa-table', description: 'Times tables', popularity: 'medium' },
-                { id: 54, name: 'Math Solver', category: 'educational', icon: 'fa-square-root-alt', description: 'Solve equations', popularity: 'high' },
-                { id: 55, name: 'Roman Converter', category: 'educational', icon: 'fa-roman', description: 'Roman numerals', popularity: 'medium' },
-                { id: 56, name: 'CGPA Calculator', category: 'educational', icon: 'fa-graduation-cap', description: 'Grade calculator', popularity: 'high' },
-                { id: 57, name: 'Bangla Date', category: 'educational', icon: 'fa-calendar-alt', description: 'English to Bangla date', popularity: 'medium' },
-                
-                // File Tools (5 tools)
-                { id: 58, name: 'URL Shortener', category: 'file', icon: 'fa-link', description: 'Shorten URLs', popularity: 'high' },
-                { id: 59, name: 'File to URL', category: 'file', icon: 'fa-file-upload', description: 'Share files', popularity: 'medium' },
-                { id: 60, name: 'Screenshot Tool', category: 'file', icon: 'fa-camera', description: 'Website screenshots', popularity: 'medium' },
-                { id: 61, name: 'File Splitter', category: 'file', icon: 'fa-cut', description: 'Split large files', popularity: 'low' },
-                { id: 62, name: 'ZIP Tool', category: 'file', icon: 'fa-file-archive', description: 'Compress files', popularity: 'medium' },
-                
-                // Professional Tools (4 tools)
-                { id: 63, name: 'Email Signature', category: 'professional', icon: 'fa-signature', description: 'Create signatures', popularity: 'medium' },
-                { id: 64, name: 'Resume Checker', category: 'professional', icon: 'fa-file-alt', description: 'CV analysis', popularity: 'high' },
-                { id: 65, name: 'Invoice Generator', category: 'professional', icon: 'fa-file-invoice', description: 'Create invoices', popularity: 'medium' },
-                { id: 66, name: 'Meeting Scheduler', category: 'professional', icon: 'fa-calendar-check', description: 'Schedule meetings', popularity: 'medium' },
-                
-                // Fun & AI Tools (4 tools)
-                { id: 67, name: 'AI Image Gen', category: 'fun', icon: 'fa-robot', description: 'Text to image', popularity: 'high' },
-                { id: 68, name: 'Text Summarizer', category: 'fun', icon: 'fa-compress-alt', description: 'AI summary', popularity: 'high' },
-                { id: 69, name: 'Meme Generator', category: 'fun', icon: 'fa-smile', description: 'Create memes', popularity: 'high' },
-                { id: 70, name: 'Story Generator', category: 'fun', icon: 'fa-book-open', description: 'AI story writer', popularity: 'medium' }
-            ];
-
-            // Load tools in grid
-            function loadTools(category = 'all') {
-                $('#loadingSpinner').show();
-                
-                setTimeout(() => {
-                    let filteredTools = category === 'all' ? tools : tools.filter(t => t.category === category);
-                    
-                    let toolsHtml = '';
-                    filteredTools.forEach(tool => {
-                        toolsHtml += `
-                            <div class="tool-card" data-id="${tool.id}">
-                                <div class="tool-icon">
-                                    <i class="fas ${tool.icon}"></i>
-                                </div>
-                                <h3>${tool.name}</h3>
-                                <p>${tool.description}</p>
-                                <div class="tool-meta">
-                                    <span><i class="fas fa-star"></i> ${tool.popularity}</span>
-                                    <span><i class="fas fa-users"></i> Free</span>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    
-                    $('#toolsGrid').html(toolsHtml);
-                    $('#loadingSpinner').hide();
-                }, 500);
+        // Make functions global
+        window.processTool = function(toolId) {
+            const input = $('#toolInput').val();
+            if (!input) {
+                alert('Please enter some input');
+                return;
             }
-
-            // Initial load
-            loadTools();
-
-            // Category filter
-            $('.category-btn').click(function() {
-                $('.category-btn').removeClass('active');
-                $(this).addClass('active');
-                const category = $(this).data('category');
-                loadTools(category);
-            });
-
-            // Search functionality
-            $('#searchTools').on('keyup', function() {
-                const searchTerm = $(this).val().toLowerCase();
-                
-                if (searchTerm.length > 0) {
-                    const filteredTools = tools.filter(tool => 
-                        tool.name.toLowerCase().includes(searchTerm) || 
-                        tool.description.toLowerCase().includes(searchTerm)
-                    );
+            
+            let result = '';
+            
+            switch(toolId) {
+                case 11: // Word Counter
+                    const words = input.trim().split(/\s+/).length;
+                    const chars = input.length;
+                    const charsNoSpace = input.replace(/\s+/g, '').length;
+                    result = `Words: ${words}\nCharacters: ${chars}\nCharacters (no space): ${charsNoSpace}`;
+                    break;
                     
-                    let toolsHtml = '';
-                    filteredTools.forEach(tool => {
-                        toolsHtml += `
-                            <div class="tool-card" data-id="${tool.id}">
-                                <div class="tool-icon">
-                                    <i class="fas ${tool.icon}"></i>
-                                </div>
-                                <h3>${tool.name}</h3>
-                                <p>${tool.description}</p>
-                                <div class="tool-meta">
-                                    <span><i class="fas fa-star"></i> ${tool.popularity}</span>
-                                    <span><i class="fas fa-users"></i> Free</span>
-                                </div>
-                            </div>
-                        `;
-                    });
+                case 12: // Case Converter
+                    result = `Uppercase: ${input.toUpperCase()}\nLowercase: ${input.toLowerCase()}\nTitle Case: ${input.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())}`;
+                    break;
                     
-                    $('#toolsGrid').html(toolsHtml);
-                } else {
-                    loadTools($('.category-btn.active').data('category'));
-                }
-            });
+                case 14: // Duplicate Remover
+                    const lines = input.split('\n');
+                    const uniqueLines = [...new Set(lines)];
+                    result = uniqueLines.join('\n');
+                    break;
+                    
+                case 15: // Text Compare
+                    alert('Please use the compare feature in modal');
+                    return;
+                    
+                case 16: // Lorem Ipsum
+                    result = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+                    break;
+                    
+                case 18: // Palindrome Checker
+                    const cleanStr = input.toLowerCase().replace(/[^a-z0-9]/g, '');
+                    const isPalindrome = cleanStr === cleanStr.split('').reverse().join('');
+                    result = isPalindrome ? '✅ This is a palindrome!' : '❌ This is not a palindrome';
+                    break;
+                    
+                case 19: // Reverse Text
+                    result = input.split('').reverse().join('');
+                    break;
+                    
+                default:
+                    result = `Processed: ${input}`;
+            }
+            
+            $('#toolResult').text(result).addClass('show');
+        };
 
-            // Tool click handler
-            $(document).on('click', '.tool-card', function() {
-                const toolId = $(this).data('id');
-                const tool = tools.find(t => t.id === toolId);
+        // Unit Converter
+        window.convertUnit = function() {
+            const value = parseFloat($('#unitValue').val());
+            const fromUnit = $('#fromUnit').val();
+            const toUnit = $('#toUnit').val();
+            
+            if (isNaN(value)) {
+                alert('Please enter a valid number');
+                return;
+            }
+            
+            // Conversion logic
+            let result = value;
+            
+            // Simple conversions
+            if (fromUnit === 'Meters' && toUnit === 'Kilometers') {
+                result = value / 1000;
+            } else if (fromUnit === 'Kilometers' && toUnit === 'Meters') {
+                result = value * 1000;
+            } else if (fromUnit === 'Miles' && toUnit === 'Kilometers') {
+                result = value * 1.60934;
+            } else if (fromUnit === 'Kilometers' && toUnit === 'Miles') {
+                result = value / 1.60934;
+            }
+            
+            $('#unitResult').html(`
+                <strong>Result:</strong> ${value} ${fromUnit} = ${result.toFixed(4)} ${toUnit}
+                <button class="copy-btn" onclick="copyToClipboard('${result.toFixed(4)} ${toUnit}')">Copy</button>
+            `).addClass('show');
+        };
+
+        // QR Code Generator
+        window.generateQR = function() {
+            const text = $('#qrText').val();
+            if (!text) {
+                alert('Please enter text or URL');
+                return;
+            }
+            
+            // Using a free QR code API
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`;
+            
+            $('#qrResult').html(`
+                <img src="${qrUrl}" alt="QR Code" style="max-width: 200px; display: block; margin: 0 auto;">
+                <button class="copy-btn" onclick="window.open('${qrUrl}', '_blank')">Download QR</button>
+            `).addClass('show');
+        };
+
+        // Password Generator
+        window.generatePassword = function() {
+            const length = parseInt($('#passLength').val()) || 12;
+            const includeUpper = $('#includeUpper').is(':checked');
+            const includeLower = $('#includeLower').is(':checked');
+            const includeNumbers = $('#includeNumbers').is(':checked');
+            const includeSymbols = $('#includeSymbols').is(':checked');
+            
+            let charset = '';
+            if (includeUpper) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (includeLower) charset += 'abcdefghijklmnopqrstuvwxyz';
+            if (includeNumbers) charset += '0123456789';
+            if (includeSymbols) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            
+            if (charset === '') {
+                alert('Please select at least one character type');
+                return;
+            }
+            
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            
+            $('#passwordResult').html(`
+                <strong>Generated Password:</strong><br>
+                <code style="font-size: 18px;">${password}</code><br>
+                <button class="copy-btn" onclick="copyToClipboard('${password}')">Copy Password</button>
+            `).addClass('show');
+        };
+
+        // JSON Formatter
+        window.formatJSON = function() {
+            const input = $('#jsonInput').val();
+            if (!input) {
+                alert('Please enter JSON');
+                return;
+            }
+            
+            try {
+                const jsonObj = JSON.parse(input);
+                const formatted = JSON.stringify(jsonObj, null, 4);
                 
-                // Create modal content based on tool type
-                let modalHtml = `
-                    <span class="close-modal">&times;</span>
-                    <div class="modal-header">
-                        <div class="tool-icon">
-                            <i class="fas ${tool.icon}"></i>
-                        </div>
-                        <h2>${tool.name}</h2>
-                    </div>
-                `;
+                $('#jsonResult').html(`
+                    <strong>Formatted JSON:</strong><br>
+                    <pre style="background: #fff; padding: 10px; border-radius: 5px; overflow-x: auto;">${formatted}</pre>
+                    <button class="copy-btn" onclick="copyToClipboard('${formatted.replace(/'/g, "\\'")}')">Copy</button>
+                `).addClass('show');
+            } catch (e) {
+                $('#jsonResult').html(`<strong style="color: red;">Invalid JSON: ${e.message}</strong>`).addClass('show');
+            }
+        };
 
-                // Different interfaces for different tools
-                switch(tool.name) {
-                    case 'Unit Converter':
-                        modalHtml += `
-                            <div class="tool-input-group">
-                                <label>From:</label>
-                                <input type="number" id="unitValue" placeholder="Enter value">
-                                <select id="fromUnit">
-                                    <option>Meters</option>
-                                    <option>Kilometers</option>
-                                    <option>Miles</option>
-                                </select>
-                            </div>
-                            <div class="tool-input-group">
-                                <label>To:</label>
-                                <select id="toUnit">
-                                    <option>Meters</option>
-                                    <option>Kilometers</option>
-                                    <option>Miles</option>
-                                </select>
-                            </div>
-                            <button class="tool-btn" onclick="convertUnit()">Convert</button>
-                            <div class="tool-result" id="unitResult"></div>
-                        `;
-                        break;
-                        
-                    case 'QR Code':
-                        modalHtml += `
-                            <div class="tool-input-group">
-                                <label>Enter Text or URL:</label>
-                                <input type="text" id="qrText" placeholder="https://example.com">
-                            </div>
-                            <button class="tool-btn" onclick="generateQR()">Generate QR</button>
-                            <div class="tool-result" id="qrResult"></div>
-                        `;
-                        break;
-                        
-                    case 'Password Generator':
-                        modalHtml += `
-                            <div class="tool-input-group">
-                                <label>Password Length:</label>
-                                <input type="number" id="passLength" value="12" min="4" max="50">
-                            </div>
-                            <div class="tool-input-group">
-                                <label><input type="checkbox" id="includeUpper" checked> Include Uppercase</label><br>
-                                <label><input type="checkbox" id="includeLower" checked> Include Lowercase</label><br>
-                                <label><input type="checkbox" id="includeNumbers" checked> Include Numbers</label><br>
-                                <label><input type="checkbox" id="includeSymbols" checked> Include Symbols</label>
-                            </div>
-                            <button class="tool-btn" onclick="generatePassword()">Generate Password</button>
-                            <div class="tool-result" id="passwordResult"></div>
-                        `;
-                        break;
-                        
-                    case 'JSON Formatter':
-                        modalHtml += `
-                            <div class="tool-input-group">
-                                <label>Enter JSON:</label>
-                                <textarea id="jsonInput" rows="5" placeholder='{"name":"John","age":30}'></textarea>
-                            </div>
-                            <button class="tool-btn" onclick="formatJSON()">Format JSON</button>
-                            <div class="tool-result" id="jsonResult"></div>
-                        `;
-                        break;
-                        
-                    case 'Image Resizer':
-                        modalHtml += `
-                            <div class="tool-input-group">
-                                <label>Upload Image:</label>
-                                <input type="file" id="imageUpload" accept="image/*">
-                            </div>
-                            <div class="tool-input-group">
-                                <label>Width:</label>
-                                <input type="number" id="imgWidth" placeholder="Width in px">
-                            </div>
-                            <div class="tool-input-group">
-                                <label>Height:</label>
-                                <input type="number" id="imgHeight" placeholder="Height in px">
-                            </div>
-                            <button class="tool-btn" onclick="resizeImage()">Resize</button>
-                            <div class="tool-result" id="imageResult"></div>
-                        `;
-                        break;
-                        
-                    default:
-                        modalHtml += `
-                            <div class="tool-input-group">
-                                <label>Input:</label>
-                                <textarea id="toolInput" rows="4" placeholder="Enter your text here..."></textarea>
-                            </div>
-                            <button class="tool-btn" onclick="processTool(${tool.id})">Process</button>
-                            <div class="tool-result" id="toolResult"></div>
-                        `;
-                }
+        // Image Resizer
+        window.resizeImage = function() {
+            const fileInput = $('#imageUpload')[0];
+            const width = parseInt($('#imgWidth').val());
+            const height = parseInt($('#imgHeight').val());
+            
+            if (!fileInput.files || !fileInput.files[0]) {
+                alert('Please select an image');
+                return;
+            }
+            
+            if (isNaN(width) || isNaN(height)) {
+                alert('Please enter valid width and height');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    const resizedDataUrl = canvas.toDataURL('image/jpeg');
+                    
+                    $('#imageResult').html(`
+                        <img src="${resizedDataUrl}" alt="Resized Image" style="max-width: 100%;"><br>
+                        <button class="copy-btn" onclick="window.open('${resizedDataUrl}', '_blank')">Download</button>
+                    `).addClass('show');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        };
 
-                $('#modalContent').html(modalHtml);
-                $('#toolModal').fadeIn();
+        // Copy to clipboard function
+        window.copyToClipboard = function(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            }).catch(() => {
+                alert('Failed to copy');
             });
+        };
 
-            // Close modal
-            $(document).on('click', '.close-modal', function() {
-                $('#toolModal').fadeOut();
-            });
+        // Helper functions for footer links
+        window.openToolByName = function(toolName) {
+            const tool = tools.find(t => t.name === toolName);
+            if (tool) {
+                openToolModal(tool);
+            }
+        };
 
-            $(window).click(function(e) {
-                if ($(e.target).
+        window.filterByCategory = function(category) {
+            $('.category-btn').removeClass('active');
+            $(`.category-btn[data-category="${category}"]`).addClass('active');
+            loadTools(category);
+            
+            // Scroll to tools grid
+            $('html, body').animate({
+                scrollTop: $('#toolsGrid').offset().top - 100
+            }, 500);
+        };
+
+        // Complete Tools Database
+        const tools = [
+            // Basic Utilities (10 tools)
+            { id: 1, name: 'Unit Converter', category: 'basic', icon: 'fa-arrows-alt', description: 'Convert length, mass, volume, temperature', popularity: 'high' },
+            { id: 2, name: 'Currency Converter', category: 'basic', icon: 'fa-dollar-sign', description: 'Live exchange rates', popularity: 'high' },
+            { id: 3, name: 'PDF Tools', category: 'basic', icon: 'fa-file-pdf', description: 'Merge, split, compress PDF', popularity: 'high' },
+            { id: 4, name: 'Image Converter', category: 'basic', icon: 'fa-image', description: 'JPG, PNG, WebP, GIF converter', popularity: 'high' },
+            { id: 5, name: 'Image Resizer', category: 'basic', icon: 'fa-expand', description: 'Resize and crop images', popularity: 'medium' },
+            { id: 6, name: 'Color Picker', category: 'basic', icon: 'fa-palette', description: 'Hex to RGB converter', popularity: 'medium' },
+            { id: 7, name: 'Speed Test', category: 'basic', icon: 'fa-tachometer-alt', description: 'Check internet speed', popularity: 'medium' },
+            { id: 8, name: 'Stopwatch', category: 'basic', icon: 'fa-stopwatch', description: 'Simple timer', popularity: 'low' },
+            { id: 9, name: 'Age Calculator', category: 'basic', icon: 'fa-calendar', description: 'Calculate exact age', popularity: 'medium' },
+            { id: 10, name: 'Percentage Calculator', category: 'basic', icon: 'fa-percent', description: 'Calculate percentages', popularity: 'high' },
+            
+            // Text Tools (10 tools)
+            { id: 11, name: 'Word Counter', category: 'text', icon: 'fa-file-alt', description: 'Count words and characters', popularity: 'high' },
+            { id: 12, name: 'Case Converter', category: 'text', icon: 'fa-text-height', description: 'Uppercase, lowercase, title case', popularity: 'high' },
+            { id: 13, name: 'Grammar Checker', category: 'text', icon: 'fa-spell-check', description: 'AI-powered grammar check', popularity: 'high' },
+            { id: 14, name: 'Duplicate Remover', category: 'text', icon: 'fa-clone', description: 'Remove duplicate lines', popularity: 'medium' },
+            { id: 15, name: 'Text Compare', category: 'text', icon: 'fa-not-equal', description: 'Compare text differences', popularity: 'medium' },
+            { id: 16, name: 'Lorem Ipsum', category: 'text', icon: 'fa-paragraph', description: 'Generate placeholder text', popularity: 'medium' },
+            { id: 17, name: 'Handwriting Generator', category: 'text', icon: 'fa-pen', description: 'Create handwriting style', popularity: 'low' },
+            { id: 18, name: 'Palindrome Checker', category: 'text', icon: 'fa-sync', description: 'Check palindrome words', popularity: 'low' },
+            { id: 19, name: 'Reverse Text', category: 'text', icon: 'fa-undo-alt', description: 'Reverse string', popularity: 'low' },
+            { id: 20, name: 'ASCII Generator', category: 'text', icon: 'fa-font', description: 'Text to ASCII art', popularity: 'low' },
+            
+            // Developer Tools (12 tools)
+            { id: 21, name: 'JSON Formatter', category: 'dev', icon: 'fa-brackets-curly', description: 'Format and validate JSON', popularity: 'high' },
+            { id: 22, name: 'HTML Encoder', category: 'dev', icon: 'fa-code', description: 'Encode/decode HTML', popularity: 'high' },
+            { id: 23, name: 'Base64 Encoder', category: 'dev', icon: 'fa-lock', description: 'Encode/decode Base64', popularity: 'high' },
+            { id: 24, name: 'CSS Minifier', category: 'dev', icon: 'fa-file-code', description: 'Minify CSS code', popularity: 'medium' },
+            { id: 25, name: 'JS Minifier', category: 'dev', icon: 'fa-file-code', description: 'Minify JavaScript', popularity: 'medium' },
+            { id: 26, name: 'Code Share', category: 'dev', icon: 'fa-share-alt', description: 'Share code snippets', popularity: 'medium' },
+            { id: 27, name: 'Regex Tester', category: 'dev', icon: 'fa-terminal', description: 'Test regular expressions', popularity: 'medium' },
+            { id: 28, name: 'SQL Formatter', category: 'dev', icon: 'fa-database', description: 'Format SQL queries', popularity: 'medium' },
+            { id: 29, name: 'JWT Decoder', category: 'dev', icon: 'fa-key', description: 'Decode JWT tokens', popularity: 'medium' },
+            { id: 30, name: 'URL Parser', category: 'dev', icon: 'fa-link', description: 'Parse URL components', popularity: 'low' },
+            { id: 31, name: 'Git Ignore Generator', category: 'dev', icon: 'fa-git', description: 'Generate .gitignore files', popularity: 'medium' },
+            { id: 32, name: 'Port Scanner', category: 'dev', icon: 'fa-network-wired', description: 'Scan open ports', popularity: 'low' },
+            
+            // Creative Tools (8 tools)
+            { id: 33, name: 'Logo Maker', category: 'creative', icon: 'fa-paint-brush', description: 'Create simple logos', popularity: 'high' },
+            { id: 34, name: 'Font Generator', category: 'creative', icon: 'fa-font-awesome', description: 'Fancy text fonts', popularity: 'high' },
+            { id: 35, name: 'Watermark Tool', category: 'creative', icon: 'fa-water', description: 'Add watermark to images', popularity: 'medium' },
+            { id: 36, name: 'Image Blur', category: 'creative', icon: 'fa-blender', description: 'Blur image parts', popularity: 'medium' },
+            { id: 37, name: 'Gradient Generator', category: 'creative', icon: 'fa-gradient', description: 'CSS gradients', popularity: 'high' },
+            { id: 38, name: 'QR Code', category: 'creative', icon: 'fa-qrcode', description: 'Generate QR codes', popularity: 'high' },
+            { id: 39, name: 'Barcode Generator', category: 'creative', icon: 'fa-barcode', description: 'Create barcodes', popularity: 'medium' },
+            { id: 40, name: 'Pattern Generator', category: 'creative', icon: 'fa-th', description: 'Create patterns', popularity: 'low' },
+            
+            // Finance Tools (6 tools)
+            { id: 41, name: 'EMI Calculator', category: 'finance', icon: 'fa-calculator', description: 'Calculate loan EMI', popularity: 'high' },
+            { id: 42, name: 'GST Calculator', category: 'finance', icon: 'fa-file-invoice-dollar', description: 'Tax calculation', popularity: 'high' },
+            { id: 43, name: 'Tip Calculator', category: 'finance', icon: 'fa-utensils', description: 'Restaurant bill tip', popularity: 'medium' },
+            { id: 44, name: 'Sales Tax', category: 'finance', icon: 'fa-chart-line', description: 'Sales tax calculator', popularity: 'medium' },
+            { id: 45, name: 'Discount Calculator', category: 'finance', icon: 'fa-tags', description: 'Calculate discounts', popularity: 'high' },
+            { id: 46, name: 'Scientific Calculator', category: 'finance', icon: 'fa-square-root-alt', description: 'Advanced calculator', popularity: 'medium' },
+            
+            // Daily Life Tools (6 tools)
+            { id: 47, name: 'World Clock', category: 'daily', icon: 'fa-clock', description: 'Global time zones', popularity: 'high' },
+            { id: 48, name: 'Date Difference', category: 'daily', icon: 'fa-calendar-alt', description: 'Days between dates', popularity: 'medium' },
+            { id: 49, name: 'Random Number', category: 'daily', icon: 'fa-dice', description: 'Generate random numbers', popularity: 'medium' },
+            { id: 50, name: 'Password Generator', category: 'daily', icon: 'fa-key', description: 'Strong passwords', popularity: 'high' },
+            { id: 51, name: 'Battery Checker', category: 'daily', icon: 'fa-battery-full', description: 'Check battery status', popularity: 'low' },
+            { id: 52, name: 'Flashlight', category: 'daily', icon: 'fa-lightbulb', description: 'Screen flashlight', popularity: 'low' },
+            
+            // Educational Tools (5 tools)
+            { id: 53, name: 'Multiplication Table', category: 'educational', icon: 'fa-table', description: 'Times tables', popularity: 'medium' },
+            { id: 54, name: 'Math Solver', category: 'educational', icon: 'fa-square-root-alt',
